@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:21:05 by lugibone          #+#    #+#             */
-/*   Updated: 2019/11/21 18:58:48 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/11/27 18:26:33 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 void	set_scene(t_scene *scene)
 {
 	scene->bg_color = 0x181818;
+	scene->bg_color = 0x000000;
 	scene->scale = 10;
+	scene->iteration = 50;
+	scene->scale = 1;
 }
 
 t_scene	*init_scene(int w, int h, char *str)
@@ -23,8 +26,6 @@ t_scene	*init_scene(int w, int h, char *str)
 	t_scene *scene;
 
 	scene = malloc(sizeof(t_scene));
-	scene->point_a = malloc(sizeof(t_point*));
-	scene->point_b = malloc(sizeof(t_point*));
 	set_scene(scene);
 	scene->win_height = h;
 	scene->win_width = w;
