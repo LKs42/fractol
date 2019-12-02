@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 15:23:19 by lugibone          #+#    #+#             */
-/*   Updated: 2019/11/27 17:02:31 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/12/02 15:58:30 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@
 # include <sys/uio.h>
 # include <fcntl.h>
 # include <math.h>
+
+typedef struct		s_plan
+{
+	float x1;
+	float x2;
+	float y1;
+	float y2;
+}			t_plan;
 
 typedef struct		s_list
 {
@@ -56,6 +64,7 @@ typedef struct		s_scene
 	int				endian;
 	int				bg_color;
 	int				iteration;
+	t_plan				plan;
 }					t_scene;
 
 size_t				ft_strlen(const char *str);

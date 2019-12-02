@@ -6,12 +6,13 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:24:42 by lugibone          #+#    #+#             */
-/*   Updated: 2019/11/27 18:25:25 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/12/02 19:19:00 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <math.h>
+#include <stdio.h>
 
 #define ITERATION_MAX 10/*
 #define x1 -2.1
@@ -19,14 +20,14 @@
 #define y1 -1.2
 #define y2 1.2
 */
-#define x1 -2.1
-#define x2 0.6
-#define y1 -1.2
-#define y2 1.2
+#define plan_x1 -2.1
+#define plan_x2 0.6
+#define plan_y1 -1.2
+#define plan_y2 1.2
 //#define zoomx (WIDTH/ (x2 - x1))
 //#define zoomy (HEIGHT / (y2 - y1))
 
-int	md_set(t_scene *scene)
+int	md_set(t_scene *scene, t_plan *plan)
 {
 	t_complex c;
 	t_complex z;
@@ -38,16 +39,16 @@ int	md_set(t_scene *scene)
 
 	float scale = scene->scale;
 
-	zoomx = WIDTH / (x2/scale - x1/scale);
-	zoomy = HEIGHT / (y2/scale - y1/scale);
+	zoomx = WIDTH / (plan->x2/scale - plan->x1/scale);
+	zoomy = HEIGHT / (plan->y2/scale - plan->y1/scale);
 
 	for(int x = 0; x < WIDTH; x++)
 	{
 		for (int y = 0; y < HEIGHT; y++)
 		{
 			i = 0;
-			c.r = x / zoomx + x1;
-			c.i = y / zoomy + y1;
+			c.r = x / zoomx + plan->x1;
+			c.i = y / zoomy + plan->y1;
 			z.r = 0;
 			z.i = 0;
 
@@ -74,14 +75,42 @@ int	deal_mouse(int key, int x, int y, t_scene *scene)
 	(void)y;
 	ft_putnbr(key);
 	ft_putchar('\n');
-
-	if (key == 3)
+	float tmp;
+	float tmp2;
+	if (key == 5)
 	scene->scale = 1;
-	if (key == 4)
+	if (key == 3)
+	{
+		scene->plan.x1 = plan_x1;
+		scene->plan.x2 = plan_x2;
+		scene->plan.y1 = plan_y1;
+		scene->plan.y2 = plan_y2;
+	}
+	if (key == 1)
 		scene->iteration++;
-	if (key == 5 && scene->iteration > 1)
+	if (key == 2 && scene->iteration > 1)
 		scene->iteration--;
-	md_set(scene);
+	if (key == 4 && x > 0 && y > 0)
+	{
+	tmp2 = (float)x/WIDTH;
+	tmp = scene->plan.x2 - scene->plan.x1;
+	scene->plan.x1 = tmp2 * (scene->plan.x2 - scene->plan.x1) + scene->plan.x1 - tmp/2;
+	scene->plan.x2 = scene->plan.x1 + tmp;
+	tmp2 = (float)y/HEIGHT;
+	tmp = scene->plan.y2 - scene->plan.y1;
+	scene->plan.y1 = tmp2 * (scene->plan.y2 - scene->plan.y1) + scene->plan.y1 - tmp/2;
+	scene->plan.y2 = scene->plan.y1 + tmp;
+		scene->plan.x1 /= 1.02;
+		scene->plan.x2 /= 1.02;
+		scene->plan.y1 /= 1.02;
+		scene->plan.y2 /= 1.02;
+	ft_putnbr(x);
+	ft_putchar(' ');
+	ft_putnbr(y);
+	ft_putchar('\n');
+
+	}
+	md_set(scene, &scene->plan);
 	mlx_put_image_to_window(scene->mlx_ptr,
 			scene->win_ptr, scene->img_ptr, 0, 0);
 
@@ -90,11 +119,18 @@ int	deal_mouse(int key, int x, int y, t_scene *scene)
 
 int	main()
 {
+	t_plan *plan;
+	plan = malloc(sizeof(t_plan*));
+	plan->x1 = plan_x1;
+	plan->x2 = plan_x2;
+	plan->y1 = plan_y1;
+	plan->y2 = plan_y2;
 	t_scene *scene;
 	scene = NULL;
 	scene = init_scene(WIDTH, HEIGHT, "hell world");
+	scene->plan = *plan;
 	fill_img(scene, scene->bg_color);
-	md_set(scene);
+	md_set(scene, plan);
 	mlx_put_image_to_window(scene->mlx_ptr,
 scene->win_ptr, scene->img_ptr, 0, 0);
 	mlx_key_hook(scene->win_ptr, deal_key, scene);

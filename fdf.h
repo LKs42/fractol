@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 14:46:58 by lugibone          #+#    #+#             */
-/*   Updated: 2019/11/27 18:27:26 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/12/02 15:52:12 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define WIDTH 500
 # define HEIGHT 500
 
-int	md_set(t_scene *scene);
+int	md_set(t_scene *scene, t_plan *plan);
 t_scene	*init_scene(int w, int h, char *str);
 t_point	**fileread(int fd, t_scene *scene);
 t_point	*ft_rot_x(t_point *point, t_scene *scene, t_point *new_point);
