@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:24:42 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/02 19:19:00 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/12/02 19:21:31 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #define x2 0.6
 #define y1 -1.2
 #define y2 1.2
-*/
+			 */
 #define plan_x1 -2.1
 #define plan_x2 0.6
 #define plan_y1 -1.2
@@ -78,7 +78,7 @@ int	deal_mouse(int key, int x, int y, t_scene *scene)
 	float tmp;
 	float tmp2;
 	if (key == 5)
-	scene->scale = 1;
+		scene->scale = 1;
 	if (key == 3)
 	{
 		scene->plan.x1 = plan_x1;
@@ -92,22 +92,22 @@ int	deal_mouse(int key, int x, int y, t_scene *scene)
 		scene->iteration--;
 	if (key == 4 && x > 0 && y > 0)
 	{
-	tmp2 = (float)x/WIDTH;
-	tmp = scene->plan.x2 - scene->plan.x1;
-	scene->plan.x1 = tmp2 * (scene->plan.x2 - scene->plan.x1) + scene->plan.x1 - tmp/2;
-	scene->plan.x2 = scene->plan.x1 + tmp;
-	tmp2 = (float)y/HEIGHT;
-	tmp = scene->plan.y2 - scene->plan.y1;
-	scene->plan.y1 = tmp2 * (scene->plan.y2 - scene->plan.y1) + scene->plan.y1 - tmp/2;
-	scene->plan.y2 = scene->plan.y1 + tmp;
+		tmp2 = (float)x/WIDTH;
+		tmp = scene->plan.x2 - scene->plan.x1;
+		scene->plan.x1 = tmp2 * (scene->plan.x2 - scene->plan.x1) + scene->plan.x1 - tmp/2;
+		scene->plan.x2 = scene->plan.x1 + tmp;
+		tmp2 = (float)y/HEIGHT;
+		tmp = scene->plan.y2 - scene->plan.y1;
+		scene->plan.y1 = tmp2 * (scene->plan.y2 - scene->plan.y1) + scene->plan.y1 - tmp/2;
+		scene->plan.y2 = scene->plan.y1 + tmp;
 		scene->plan.x1 /= 1.02;
 		scene->plan.x2 /= 1.02;
 		scene->plan.y1 /= 1.02;
 		scene->plan.y2 /= 1.02;
-	ft_putnbr(x);
-	ft_putchar(' ');
-	ft_putnbr(y);
-	ft_putchar('\n');
+		ft_putnbr(x);
+		ft_putchar(' ');
+		ft_putnbr(y);
+		ft_putchar('\n');
 
 	}
 	md_set(scene, &scene->plan);
@@ -132,7 +132,7 @@ int	main()
 	fill_img(scene, scene->bg_color);
 	md_set(scene, plan);
 	mlx_put_image_to_window(scene->mlx_ptr,
-scene->win_ptr, scene->img_ptr, 0, 0);
+			scene->win_ptr, scene->img_ptr, 0, 0);
 	mlx_key_hook(scene->win_ptr, deal_key, scene);
 	mlx_mouse_hook(scene->win_ptr, deal_mouse, scene);
 	mlx_loop_hook(scene->mlx_ptr, md_set, scene);
