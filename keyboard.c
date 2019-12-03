@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:21:29 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/02 15:51:47 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/12/03 17:54:43 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		deal_key(int key, t_scene *scene)
 		scene->scale-=0.01;
 		//scene->iteration--;
 //	md_set(scene);
-	mlx_put_image_to_window(scene->mlx_ptr,
-			scene->win_ptr, scene->img_ptr, 0, 0);
+	//mlx_put_image_to_window(scene->mlx_ptr,
+		//	scene->win_ptr, scene->img_ptr, 0, 0);
 	return (0);
 }
