@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 15:23:19 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/03 12:50:51 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/12/03 14:43:53 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct		s_scene
 	int				bg_color;
 	int				iteration;
 	t_plan				plan;
+	double 				zoom;
 }					t_scene;
 
 size_t				ft_strlen(const char *str);

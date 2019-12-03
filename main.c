@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:24:42 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/03 13:47:02 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/12/03 14:47:48 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,16 +99,17 @@ int	deal_mouse(int key, int x, int y, t_scene *scene)
 		scene->iteration -= 10;
 	if (key == 1 && x > 0 && y > 0)
 	{
+		scene->zoom /= 2;
 		tmp2 = (double)x/(double)WIDTH;
 		tmp = scene->plan.x2 - scene->plan.x1;
 		xtmp = tmp2 * (scene->plan.x2 - scene->plan.x1) + scene->plan.x1;
 		tmp2 = (double)y/(double)HEIGHT;
 		tmp = scene->plan.y2 - scene->plan.y1;
 		ytmp = tmp2 * (scene->plan.y2 - scene->plan.y1) + scene->plan.y1;
-		scene->plan.x1 = xtmp - ok;
-		scene->plan.x2 = xtmp + ok;
-		scene->plan.y1 = ytmp - ok;
-		scene->plan.y2 = ytmp + ok;
+		scene->plan.x1 = xtmp - scene->zoom;
+		scene->plan.x2 = xtmp + scene->zoom;
+		scene->plan.y1 = xtmp - scene->zoom;
+		scene->plan.y2 = xtmp + scene->zoom;
 		printf("x:%f y:%f\n", xtmp, ytmp);
 	}
 	md_set(scene, &scene->plan);
@@ -130,6 +131,7 @@ int	main()
 	scene = NULL;
 	scene = init_scene(WIDTH, HEIGHT, "hell world");
 	scene->plan = *plan;
+	scene->zoom = 1;
 	fill_img(scene, scene->bg_color);
 	md_set(scene, plan);
 	mlx_put_image_to_window(scene->mlx_ptr,
