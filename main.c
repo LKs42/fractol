@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:24:42 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/03 13:25:59 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/12/03 13:47:02 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,8 @@ int	md_set(t_scene *scene, t_plan *plan)
 	double zoomx;
 	double zoomy;
 
-	double scale = scene->scale;
-
-	zoomx = WIDTH / (plan->x2/scale - plan->x1/scale);
-	zoomy = HEIGHT / (plan->y2/scale - plan->y1/scale);
+	zoomx = WIDTH / (plan->x2 - plan->x1);
+	zoomy = HEIGHT / (plan->y2 - plan->y1);
 
 	for(int x = 0; x < WIDTH; x++)
 	{
@@ -101,17 +99,6 @@ int	deal_mouse(int key, int x, int y, t_scene *scene)
 		scene->iteration -= 10;
 	if (key == 1 && x > 0 && y > 0)
 	{
-	/*
-		tmp2 = (double)x/(double)WIDTH;
-		tmp = scene->plan.x2 - scene->plan.x1;
-		scene->plan.x1 = tmp2 * (scene->plan.x2 - scene->plan.x1) + scene->plan.x1 - tmp/2;
-		scene->plan.x2 = scene->plan.x1 + tmp;
-		tmp2 = (double)y/(double)HEIGHT;
-		tmp = scene->plan.y2 - scene->plan.y1;
-		scene->plan.y1 = tmp2 * (scene->plan.y2 - scene->plan.y1) + scene->plan.y1 - tmp/2;
-		scene->plan.y2 = scene->plan.y1 + tmp;
-		scene->scale *= 1.2;
-	*/		
 		tmp2 = (double)x/(double)WIDTH;
 		tmp = scene->plan.x2 - scene->plan.x1;
 		xtmp = tmp2 * (scene->plan.x2 - scene->plan.x1) + scene->plan.x1;
@@ -122,7 +109,6 @@ int	deal_mouse(int key, int x, int y, t_scene *scene)
 		scene->plan.x2 = xtmp + ok;
 		scene->plan.y1 = ytmp - ok;
 		scene->plan.y2 = ytmp + ok;
-		
 		printf("x:%f y:%f\n", xtmp, ytmp);
 	}
 	md_set(scene, &scene->plan);

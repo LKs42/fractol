@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:21:05 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/03 12:57:35 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/12/03 13:44:20 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	set_scene(t_scene *scene)
 {
 	scene->bg_color = 0x181818;
 	scene->bg_color = 0x000000;
-	scene->scale = 300;
 	scene->iteration = 50;
 	scene->scale = 1;
 }
