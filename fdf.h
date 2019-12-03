@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 14:46:58 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/03 17:54:31 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/12/03 18:22:43 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define HEIGHT 500
 
 int	md_set(t_scene *scene);
+void	set_julia(t_scene *scene);
 void	set_md(t_scene *scene);
 t_scene	*init_scene(int w, int h, char *str);
 t_point	**fileread(int fd, t_scene *scene);

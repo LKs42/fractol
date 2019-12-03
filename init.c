@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:21:05 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/03 15:33:05 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/12/03 18:22:28 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ void	set_md(t_scene *scene)
 {
 	scene->plan.x1 = -2.1;
 	scene->plan.x2 = 0.6;
+	scene->plan.y1 = -1.2;
+	scene->plan.y2 = 1.2;
+}
+void	set_julia(t_scene *scene)
+{
+	scene->plan.x1 = -1;
+	scene->plan.x2 = 1;
 	scene->plan.y1 = -1.2;
 	scene->plan.y2 = 1.2;
 }

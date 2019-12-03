@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:24:42 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/03 18:20:06 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/12/03 18:36:50 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,48 @@ double	y_real(t_scene *scene, int y)
 	tmp = scene->plan.y2 - scene->plan.y1;
 	return (tmp2 * (scene->plan.y2 - scene->plan.y1) + scene->plan.y1);
 }
+
+int	julia_set(t_scene *scene, int xx, int yy)
+{
+	t_complex c;
+	t_complex z;
+	int i;
+
+	double zoomx;
+	double zoomy;
+	double tmp;
+
+	zoomx = WIDTH / (scene->plan.x2 - scene->plan.x1);
+	zoomy = HEIGHT / (scene->plan.y2 - scene->plan.y1);
+
+	for(int x = 0; x < WIDTH; x++)
+	{
+		for (int y = 0; y < HEIGHT; y++)
+		{
+			i = 0;
+			z.r = x / zoomx + scene->plan.x1;
+			z.i = y / zoomy + scene->plan.y1;
+			//c.r = 0.285;
+			//c.i = 0.01;
+			c.r = x_real(scene, xx);
+			c.i = y_real(scene, yy);
+			do
+			{
+				tmp = z.r;
+				z.r = z.r * z.r - z.i * z.i + c.r;
+				z.i = 2 * z.i * tmp + c.i;
+				i++;
+			}
+			while ((z.r * z.r) + (z.i * z.i) < 4 && i < scene->iteration);
+			if (i == scene->iteration)
+				fill_pixel(scene->str, x, y, scene->bg_color);
+			else
+				fill_pixel(scene->str, x, y, i * 0x010203 );/// scene->iteration);
+		}
+	}
+	return (1);
+}
+
 void	zoom_out(t_scene *scene, int x, int y)
 {
 		scene->zoom *= 2;
@@ -120,7 +162,8 @@ int	deal_mouse(int key, int x, int y, t_scene *scene)
 		scene->iteration -= 10;
 	if (key == 4 && x > 0 && y > 0)
 		zoom_in(scene, x, y);
-	md_set(scene);
+	//md_set(scene);
+	julia_set(scene, x, y);
 	mlx_put_image_to_window(scene->mlx_ptr,
 			scene->win_ptr, scene->img_ptr, 0, 0);
 
@@ -134,8 +177,10 @@ int	main()
 	scene = init_scene(WIDTH, HEIGHT, "hell world");
 	scene->zoom = 1;
 	fill_img(scene, scene->bg_color);
-	set_md(scene);
-	md_set(scene);
+	/*set_md(scene);
+	md_set(scene);*/
+	set_julia(scene);
+	julia_set(scene, 0, 0);
 	mlx_put_image_to_window(scene->mlx_ptr,
 			scene->win_ptr, scene->img_ptr, 0, 0);
 	mlx_key_hook(scene->win_ptr, deal_key, scene);
