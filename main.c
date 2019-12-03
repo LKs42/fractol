@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:24:42 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/02 19:21:31 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/12/03 13:22:28 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ int	md_set(t_scene *scene, t_plan *plan)
 {
 	t_complex c;
 	t_complex z;
-	float	tmp;
+	double	tmp;
 	int i;
 
-	float zoomx;
-	float zoomy;
+	double zoomx;
+	double zoomy;
 
-	float scale = scene->scale;
+	double scale = scene->scale;
 
 	zoomx = WIDTH / (plan->x2/scale - plan->x1/scale);
 	zoomy = HEIGHT / (plan->y2/scale - plan->y1/scale);
@@ -62,7 +62,7 @@ int	md_set(t_scene *scene, t_plan *plan)
 			if (i == scene->iteration)
 				fill_pixel(scene->str, x, y, scene->bg_color);
 			else
-				fill_pixel(scene->str, x, y, i * 255 / scene->iteration);
+				fill_pixel(scene->str, x, y, i * 0x0000FF / scene->iteration);
 		}
 	}
 	return (1);
@@ -75,8 +75,17 @@ int	deal_mouse(int key, int x, int y, t_scene *scene)
 	(void)y;
 	ft_putnbr(key);
 	ft_putchar('\n');
-	float tmp;
-	float tmp2;
+	double tmp;
+	double tmp2;
+	double xtmp;
+	double ytmp;
+	(void) ytmp;
+	(void) xtmp;
+	(void) tmp;
+	(void) tmp2;
+	float ok;
+	
+	ok = 0.01;
 	if (key == 5)
 		scene->scale = 1;
 	if (key == 3)
@@ -86,29 +95,36 @@ int	deal_mouse(int key, int x, int y, t_scene *scene)
 		scene->plan.y1 = plan_y1;
 		scene->plan.y2 = plan_y2;
 	}
-	if (key == 1)
-		scene->iteration++;
+	if (key == 4)
+		scene->iteration += 10;
 	if (key == 2 && scene->iteration > 1)
-		scene->iteration--;
-	if (key == 4 && x > 0 && y > 0)
+		scene->iteration -= 10;
+	if (key == 1 && x > 0 && y > 0)
 	{
-		tmp2 = (float)x/WIDTH;
+	/*
+		tmp2 = (double)x/(double)WIDTH;
 		tmp = scene->plan.x2 - scene->plan.x1;
 		scene->plan.x1 = tmp2 * (scene->plan.x2 - scene->plan.x1) + scene->plan.x1 - tmp/2;
 		scene->plan.x2 = scene->plan.x1 + tmp;
-		tmp2 = (float)y/HEIGHT;
+		tmp2 = (double)y/(double)HEIGHT;
 		tmp = scene->plan.y2 - scene->plan.y1;
 		scene->plan.y1 = tmp2 * (scene->plan.y2 - scene->plan.y1) + scene->plan.y1 - tmp/2;
 		scene->plan.y2 = scene->plan.y1 + tmp;
-		scene->plan.x1 /= 1.02;
-		scene->plan.x2 /= 1.02;
-		scene->plan.y1 /= 1.02;
-		scene->plan.y2 /= 1.02;
-		ft_putnbr(x);
-		ft_putchar(' ');
-		ft_putnbr(y);
-		ft_putchar('\n');
-
+		scene->scale *= 1.2;
+	*/		
+		tmp2 = (double)x/(double)WIDTH;
+		tmp = scene->plan.x2 - scene->plan.x1;
+		xtmp = tmp2 * (scene->plan.x2 - scene->plan.x1) + scene->plan.x1;
+		tmp2 = (double)y/(double)HEIGHT;
+		tmp = scene->plan.y2 - scene->plan.y1;
+		ytmp = tmp2 * (scene->plan.y2 - scene->plan.y1) + scene->plan.y1;
+	
+		scene->plan.x1 = xtmp - ok;
+		scene->plan.x2 = xtmp + ok;
+		scene->plan.y1 = ytmp - ok;
+		scene->plan.y2 = ytmp + ok;
+		
+		printf("x:%f y:%f\n", xtmp, ytmp);
 	}
 	md_set(scene, &scene->plan);
 	mlx_put_image_to_window(scene->mlx_ptr,
@@ -120,7 +136,7 @@ int	deal_mouse(int key, int x, int y, t_scene *scene)
 int	main()
 {
 	t_plan *plan;
-	plan = malloc(sizeof(t_plan*));
+	plan = malloc(sizeof(t_plan));
 	plan->x1 = plan_x1;
 	plan->x2 = plan_x2;
 	plan->y1 = plan_y1;

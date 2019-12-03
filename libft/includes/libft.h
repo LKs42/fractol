@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 15:23:19 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/02 15:58:30 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/12/03 12:50:51 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 
 typedef struct		s_plan
 {
-	float x1;
-	float x2;
-	float y1;
-	float y2;
+	double x1;
+	double x2;
+	double y1;
+	double y2;
 }			t_plan;
 
 typedef struct		s_list
@@ -37,8 +37,8 @@ typedef struct		s_list
 
 typedef struct		s_complex
 {
-	float			r;
-	float			i;
+	double			r;
+	double			i;
 }					t_complex;
 
 typedef struct		s_point
