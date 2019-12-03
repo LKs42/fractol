@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:24:42 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/03 13:22:28 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/12/03 13:25:41 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,8 @@ int	deal_mouse(int key, int x, int y, t_scene *scene)
 		tmp2 = (double)y/(double)HEIGHT;
 		tmp = scene->plan.y2 - scene->plan.y1;
 		ytmp = tmp2 * (scene->plan.y2 - scene->plan.y1) + scene->plan.y1;
-	
+		ok = scene->plan.x2 - scene->plan.x1;
+		ok /= 2;
 		scene->plan.x1 = xtmp - ok;
 		scene->plan.x2 = xtmp + ok;
 		scene->plan.y1 = ytmp - ok;
