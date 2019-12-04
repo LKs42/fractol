@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:21:05 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/03 18:22:28 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/12/04 15:25:32 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,16 @@ t_scene	*init_scene(int w, int h, char *str)
 {
 	t_scene *scene;
 	t_plan *plan;
+	t_complex *z;
+	t_complex *c;
 
 	plan = malloc(sizeof(t_plan));
+	c = malloc(sizeof(t_complex));
+	z = malloc(sizeof(t_complex));
 	scene = malloc(sizeof(t_scene));
 	scene->plan = *plan;
+	scene->z = *z;
+	scene->c = *c;
 	set_scene(scene);
 	scene->win_height = h;
 	scene->win_width = w;

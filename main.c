@@ -6,52 +6,96 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:24:42 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/04 15:12:02 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/12/04 16:34:36 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <math.h>
-#include <stdio.h>
 
-int	md_loop(t_complex *c, t_complex *z, int i)
+int	md_loop(t_scene *scene, int i)
 {
 	double tmp;
 
-	tmp = z->r;
-	z->r = z->r * z->r - z->i * z->i + c->r;
-	z->i = 2 * z->i * tmp + c->i;
+	tmp = scene->z.r;
+	scene->z.r = scene->z.r *scene->z.r - scene->z.i * scene->z.i + scene->c.r;
+	scene->z.i = 2 * scene->z.i * tmp + scene->c.i;
 	return (++i);
 }
 
-int	md_set(t_scene *scene)
+void	init_md(t_scene *scene, int *i, int x, int y)
 {
-	t_complex c;
-	t_complex z;
-	int i;
 	double zoomx;
 	double zoomy;
 
 	zoomx = WIDTH / (scene->plan.x2 - scene->plan.x1);
 	zoomy = HEIGHT / (scene->plan.y2 - scene->plan.y1);
+	*i = 0;
+	scene->z.r = 0;
+	scene->z.i = 0;
+	scene->c.r = x / zoomx + scene->plan.x1;
+	scene->c.i = y / zoomy + scene->plan.y1;
+}
 
-	for(int x = 0; x < WIDTH; x++)
+int	md_set(t_scene *scene)
+{
+	int i;
+	int x;
+	int y;
+
+	x = 0;
+	while (x < WIDTH)
 	{
-		for (int y = 0; y < HEIGHT; y++)
+		y = 0;
+		while (y < HEIGHT)
 		{
-			i = 0;
-			z.r = 0;
-			z.i = 0;
-			c.r = x / zoomx + scene->plan.x1;
-			c.i = y / zoomy + scene->plan.y1;
-			i = md_loop(&c, &z, i);
-			while ((z.r * z.r) + (z.i * z.i) < 4 && i < scene->iteration)
-			i = md_loop(&c, &z, i);
+			init_md(scene, &i, x, y);
+			i = md_loop(scene, i);
+			while ((scene->z.r * scene->z.r) + (scene->z.i * scene->z.i) < 4 && i < scene->iteration)
+			i = md_loop(scene, i);
 			if (i == scene->iteration)
 				fill_pixel(scene->str, x, y, scene->bg_color);
 			else
 				fill_pixel(scene->str, x, y, i * 0x010203 );/// scene->iteration);
+			y++;
 		}
+		x++;
+	}
+	return (1);
+}
+
+int	bs_loop(t_scene *scene, int i)
+{
+	double tmp;
+
+	tmp = fabs(scene->z.r);
+	scene->z.r = fabs(scene->z.r) * fabs(scene->z.r) - fabs(scene->z.i) * fabs(scene->z.i) + scene->c.r;
+	scene->z.i = 2 * fabs(scene->z.i) * tmp + scene->c.i;
+	return (++i);
+}
+
+int	bs_set(t_scene *scene)
+{
+	int i;
+	int x;
+	int y;
+
+	x = 0;
+	while (x < WIDTH)
+	{
+		y = 0;
+		while (y < HEIGHT)
+		{
+			init_md(scene, &i, x, y);
+			i = bs_loop(scene, i);
+			while ((scene->z.r * scene->z.r) + (scene->z.i * scene->z.i) < 4 && i < scene->iteration)
+			i = bs_loop(scene, i);
+			if (i == scene->iteration)
+				fill_pixel(scene->str, x, y, scene->bg_color);
+			else
+				fill_pixel(scene->str, x, y, i * 0x010203 );/// scene->iteration);
+			y++;
+		}
+		x++;
 	}
 	return (1);
 }
@@ -76,41 +120,52 @@ double	y_real(t_scene *scene, int y)
 	return (tmp2 * (scene->plan.y2 - scene->plan.y1) + scene->plan.y1);
 }
 
-int	julia_set(t_scene *scene, int xx, int yy)
+void	init_julia(t_scene *scene, int *i, int x, int y)
 {
-	t_complex c;
-	t_complex z;
-	int i;
 
 	double zoomx;
 	double zoomy;
-	double tmp;
-
 	zoomx = WIDTH / (scene->plan.x2 - scene->plan.x1);
 	zoomy = HEIGHT / (scene->plan.y2 - scene->plan.y1);
+	*i = 0;
+	scene->z.r = x / zoomx + scene->plan.x1;
+	scene->z.i = y / zoomy + scene->plan.y1;
+}
 
-	for(int x = 0; x < WIDTH; x++)
+int	julia_loop(t_scene *scene, int i)
+{
+	double tmp;
+	tmp = scene->z.r;
+	scene->z.r = scene->z.r * scene->z.r - scene->z.i * scene->z.i + scene->c.r;
+	scene->z.i = 2 * scene->z.i * tmp + scene->c.i;
+	return(++i);
+}
+
+int	julia_set(t_scene *scene, int xx, int yy)
+{
+	int i;
+	int x;
+	int y;
+
+	x = 0;
+	while (x < WIDTH)
 	{
-		for (int y = 0; y < HEIGHT; y++)
+		y = 0;
+		while (y < HEIGHT)
 		{
-			i = 0;
-			z.r = x / zoomx + scene->plan.x1;
-			z.i = y / zoomy + scene->plan.y1;
-			c.r = x_real(scene, xx);
-			c.i = y_real(scene, yy);
-			do
-			{
-				tmp = z.r;
-				z.r = z.r * z.r - z.i * z.i + c.r;
-				z.i = 2 * z.i * tmp + c.i;
-				i++;
-			}
-			while ((z.r * z.r) + (z.i * z.i) < 4 && i < scene->iteration);
+			init_julia(scene, &i, x, y);
+			scene->c.r = x_real(scene, xx);
+			scene->c.i = y_real(scene, yy);
+			i = julia_loop(scene, i);
+			while ((scene->z.r * scene->z.r) + (scene->z.i * scene->z.i) < 4 && i < scene->iteration)
+			i = julia_loop(scene, i);
 			if (i == scene->iteration)
 				fill_pixel(scene->str, x, y, scene->bg_color);
 			else
 				fill_pixel(scene->str, x, y, i * 0x010203);// / scene->iteration);
+			y++;
 		}
+		x++;
 	}
 	return (1);
 }
@@ -149,6 +204,7 @@ int	deal_mouse(int key, int x, int y, t_scene *scene)
 		zoom_in(scene, x, y);
 	//md_set(scene);
 	julia_set(scene, x, y);
+	//bs_set(scene);
 	mlx_put_image_to_window(scene->mlx_ptr,
 			scene->win_ptr, scene->img_ptr, 0, 0);
 
@@ -170,8 +226,9 @@ int	main()
 	scene = init_scene(WIDTH, HEIGHT, "hell world");
 	scene->zoom = 1;
 	fill_img(scene, scene->bg_color);
-	/*set_md(scene);
-	md_set(scene);*/
+	set_md(scene);
+	//md_set(scene);
+	//bs_set(scene);
 	set_julia(scene);
 	julia_set(scene, 0, 0);
 	mlx_put_image_to_window(scene->mlx_ptr,
