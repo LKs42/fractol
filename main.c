@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:24:42 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/04 14:43:31 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/12/04 15:12:02 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	julia_set(t_scene *scene, int xx, int yy)
 			if (i == scene->iteration)
 				fill_pixel(scene->str, x, y, scene->bg_color);
 			else
-				fill_pixel(scene->str, x, y, i * 255 / scene->iteration);
+				fill_pixel(scene->str, x, y, i * 0x010203);// / scene->iteration);
 		}
 	}
 	return (1);
