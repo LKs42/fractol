@@ -6,22 +6,13 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:24:42 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/03 18:36:50 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/12/04 14:43:31 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <math.h>
 #include <stdio.h>
-
-#define ITERATION_MAX 10/*
-#define x1 -2.1
-#define x2 0.6
-#define y1 -1.2
-#define y2 1.2
-			 */
-//#define zoomx (WIDTH/ (x2 - x1))
-//#define zoomy (HEIGHT / (y2 - y1))
 
 int	md_loop(t_complex *c, t_complex *z, int i)
 {
@@ -38,7 +29,6 @@ int	md_set(t_scene *scene)
 	t_complex c;
 	t_complex z;
 	int i;
-
 	double zoomx;
 	double zoomy;
 
@@ -106,8 +96,6 @@ int	julia_set(t_scene *scene, int xx, int yy)
 			i = 0;
 			z.r = x / zoomx + scene->plan.x1;
 			z.i = y / zoomy + scene->plan.y1;
-			//c.r = 0.285;
-			//c.i = 0.01;
 			c.r = x_real(scene, xx);
 			c.i = y_real(scene, yy);
 			do
@@ -121,7 +109,7 @@ int	julia_set(t_scene *scene, int xx, int yy)
 			if (i == scene->iteration)
 				fill_pixel(scene->str, x, y, scene->bg_color);
 			else
-				fill_pixel(scene->str, x, y, i * 0x010203 );/// scene->iteration);
+				fill_pixel(scene->str, x, y, i * 255 / scene->iteration);
 		}
 	}
 	return (1);
@@ -146,9 +134,6 @@ void	zoom_in(t_scene *scene, int x, int y)
 
 int	deal_mouse(int key, int x, int y, t_scene *scene)
 {
-	ft_putnbr(key);
-	ft_putchar('\n');
-	
 	if (key == 5)
 		zoom_out(scene, x, y);
 	if (key == 3)
@@ -170,6 +155,14 @@ int	deal_mouse(int key, int x, int y, t_scene *scene)
 	return (1);
 }
 
+int	julia_hook(int x, int y, t_scene *scene)
+{
+	julia_set(scene, x, y);
+	mlx_put_image_to_window(scene->mlx_ptr,
+			scene->win_ptr, scene->img_ptr, 0, 0);
+	return (1);
+}
+
 int	main()
 {
 	t_scene *scene;
@@ -185,7 +178,7 @@ int	main()
 			scene->win_ptr, scene->img_ptr, 0, 0);
 	mlx_key_hook(scene->win_ptr, deal_key, scene);
 	mlx_mouse_hook(scene->win_ptr, deal_mouse, scene);
-	mlx_loop_hook(scene->mlx_ptr, md_set, scene);
+	mlx_hook(scene->win_ptr, 6, 1L << 6, julia_hook, scene);
 	mlx_loop(scene->mlx_ptr);
 	return (0);
 }
