@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 15:23:19 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/04 15:22:15 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/12/04 17:33:24 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,9 @@ typedef struct		s_scene
 	int				endian;
 	int				bg_color;
 	int				iteration;
-	t_plan				plan;
+	int				fractal_id;
 	double 				zoom;
+	t_plan				plan;
 	t_complex		z;
 	t_complex		c;
 }					t_scene;

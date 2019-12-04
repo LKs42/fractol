@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:24:42 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/04 16:34:36 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/12/04 17:43:44 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,50 +187,89 @@ void	zoom_in(t_scene *scene, int x, int y)
 		scene->plan.y2 = y_real(scene, y) + scene->zoom;
 }
 
+void	display(t_scene *scene, int x, int y)
+{
+	if (scene->fractal_id == 1)
+		md_set(scene);
+	if (scene->fractal_id == 2)
+		julia_set(scene, x, y);
+	if (scene->fractal_id == 3)
+		bs_set(scene);
+}
+
+void	reset(t_scene *scene)
+{
+	if (scene->fractal_id == 1 || scene->fractal_id == 3)
+		set_md(scene);
+	if (scene->fractal_id == 2)
+		set_julia(scene);
+	scene->zoom = 1;
+}
+
 int	deal_mouse(int key, int x, int y, t_scene *scene)
 {
 	if (key == 5)
 		zoom_out(scene, x, y);
 	if (key == 3)
-	{
-		set_md(scene);
-		scene->zoom = 1;
-	}
+		reset(scene);
 	if (key == 1)
 		scene->iteration += 10;
 	if (key == 2 && scene->iteration > 1)
 		scene->iteration -= 10;
 	if (key == 4 && x > 0 && y > 0)
 		zoom_in(scene, x, y);
-	//md_set(scene);
-	julia_set(scene, x, y);
-	//bs_set(scene);
+	display(scene, x, y);
 	mlx_put_image_to_window(scene->mlx_ptr,
 			scene->win_ptr, scene->img_ptr, 0, 0);
-
 	return (1);
 }
 
 int	julia_hook(int x, int y, t_scene *scene)
 {
+	if (scene->fractal_id == 2)
+	{
 	julia_set(scene, x, y);
 	mlx_put_image_to_window(scene->mlx_ptr,
 			scene->win_ptr, scene->img_ptr, 0, 0);
+	}
 	return (1);
 }
 
-int	main()
+void	argument(t_scene *scene, int argc, char **argv)
+{
+	if (argc != 2)
+		file_error(scene, 1);
+	else 
+	{
+		if (argv[1][0] == '1' && argv[1][1] == '\0')
+		{
+			set_md(scene);
+			md_set(scene);
+			scene->fractal_id = 1;
+		}
+		if (argv[1][0] == '2' && argv[1][1] == '\0')
+		{
+			set_julia(scene);
+			julia_set(scene, 0, 0);
+			scene->fractal_id = 2;
+		}
+		if (argv[1][0] == '3' && argv[1][1] == '\0')
+		{
+			set_md(scene);
+			bs_set(scene);
+			scene->fractal_id = 3;
+		}
+	}
+}
+
+int	main(int argc, char **argv)
 {
 	t_scene *scene;
 	scene = NULL;
 	scene = init_scene(WIDTH, HEIGHT, "hell world");
 	scene->zoom = 1;
 	fill_img(scene, scene->bg_color);
-	set_md(scene);
-	//md_set(scene);
-	//bs_set(scene);
-	set_julia(scene);
-	julia_set(scene, 0, 0);
+	argument(scene, argc, argv);
 	mlx_put_image_to_window(scene->mlx_ptr,
 			scene->win_ptr, scene->img_ptr, 0, 0);
 	mlx_key_hook(scene->win_ptr, deal_key, scene);

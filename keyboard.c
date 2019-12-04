@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:21:29 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/03 17:54:43 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/12/04 17:40:46 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,18 @@ void	key_scale(int key, t_scene *scene)
 
 int		deal_key(int key, t_scene *scene)
 {
-	//123 gauche 126 haut 124 droite 125 bas
-	ft_putnbr(key);
-	ft_putchar('\n');
 	if (key == 53)
-		exit(0);
-	if (key == 126)
-		scene->scale+=0.01;
-		//scene->iteration++;
-	if (key == 125)
-		scene->scale-=0.01;
-		//scene->iteration--;
-//	md_set(scene);
-	//mlx_put_image_to_window(scene->mlx_ptr,
-		//	scene->win_ptr, scene->img_ptr, 0, 0);
+		file_error(scene, 0);
+	if (key == 122)
+		scene->fractal_id = 1;
+	if (key == 120)
+		scene->fractal_id = 2;
+	if (key == 99)
+		scene->fractal_id = 3;
+	if (key == 99 || key == 120 || key == 122)
+		reset(scene);
+	display(scene, 0, 0);
+	mlx_put_image_to_window(scene->mlx_ptr,
+			scene->win_ptr, scene->img_ptr, 0, 0);
 	return (0);
 }

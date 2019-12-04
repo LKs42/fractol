@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:21:05 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/04 15:25:32 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/12/04 17:38:47 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	set_scene(t_scene *scene)
 	scene->iteration = 50;
 	scene->scale = 1;
 	scene->zoom = 1;
+	scene->fractal_id = 0;
 }
 
 void	set_md(t_scene *scene)
@@ -36,6 +37,20 @@ void	set_julia(t_scene *scene)
 	scene->plan.y2 = 1.2;
 }
 
+void	usage(void)
+{
+	ft_putendl("usage: ./fractol [1-3]");
+}
+
+void	file_error(t_scene *scene, int b)
+{
+	mlx_destroy_image(scene->mlx_ptr, scene->img_ptr);
+	mlx_destroy_window(scene->mlx_ptr, scene->win_ptr);
+	if (scene)
+		free(scene);
+	b ? usage() : 0;
+	exit(0);
+}
 t_scene	*init_scene(int w, int h, char *str)
 {
 	t_scene *scene;

@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 14:46:58 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/03 18:22:43 by lugibone         ###   ########.fr       */
+/*   Updated: 2019/12/04 17:39:05 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # define WIDTH 500
 # define HEIGHT 500
 
+void	reset(t_scene *scene);
+void	display(t_scene *scene, int x, int y);
 int	md_set(t_scene *scene);
 void	set_julia(t_scene *scene);
 void	set_md(t_scene *scene);
