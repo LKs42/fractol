@@ -6,11 +6,11 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:21:29 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/04 17:40:46 by lugibone         ###   ########.fr       */
+/*   Updated: 2020/01/06 15:41:55 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "fractol.h"
 
 void	key_scale(int key, t_scene *scene)
 {

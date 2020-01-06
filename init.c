@@ -6,11 +6,11 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:21:05 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/04 17:38:47 by lugibone         ###   ########.fr       */
+/*   Updated: 2020/01/06 16:17:12 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "fractol.h"
 
 void	set_scene(t_scene *scene)
 {
@@ -29,17 +29,13 @@ void	set_md(t_scene *scene)
 	scene->plan.y1 = -1.2;
 	scene->plan.y2 = 1.2;
 }
+
 void	set_julia(t_scene *scene)
 {
 	scene->plan.x1 = -1;
 	scene->plan.x2 = 1;
 	scene->plan.y1 = -1.2;
 	scene->plan.y2 = 1.2;
-}
-
-void	usage(void)
-{
-	ft_putendl("usage: ./fractol [1-3]");
 }
 
 void	file_error(t_scene *scene, int b)
@@ -51,20 +47,12 @@ void	file_error(t_scene *scene, int b)
 	b ? usage() : 0;
 	exit(0);
 }
+
 t_scene	*init_scene(int w, int h, char *str)
 {
 	t_scene *scene;
-	t_plan *plan;
-	t_complex *z;
-	t_complex *c;
 
-	plan = malloc(sizeof(t_plan));
-	c = malloc(sizeof(t_complex));
-	z = malloc(sizeof(t_complex));
 	scene = malloc(sizeof(t_scene));
-	scene->plan = *plan;
-	scene->z = *z;
-	scene->c = *c;
 	set_scene(scene);
 	scene->win_height = h;
 	scene->win_width = w;

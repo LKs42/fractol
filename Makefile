@@ -6,11 +6,11 @@
 #    By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/02 15:19:01 by lugibone          #+#    #+#              #
-#    Updated: 2019/11/21 18:55:36 by lugibone         ###   ########.fr        #
+#    Updated: 2020/01/06 16:32:24 by lugibone         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fdf
+NAME = fractol
 
 RESET = \e[0m
 BOLD = \e[1m
@@ -44,7 +44,7 @@ DARK_GRAY = \e[100m
 BG_WHITE = \e[107m
 
 CCC = gcc
-FLAGS = -g -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra
 MLX = minilibx_macos/libmlx.a
 SRC_PATH = ./
 OBJ_PATH = ./
@@ -55,6 +55,10 @@ SRC_NAME =	bresenham.c \
 			init.c \
 			pixel.c \
 			ft_itoa_base.c \
+			mandelbrot.c \
+			julia.c \
+			burning_ship.c \
+			utils.c \
 			main.c
 OBJS := $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 SRCS := $(addprefix $(SRC_PATH)/,$(SRC_NAME))
@@ -64,7 +68,7 @@ INCLUDES = ./libft/includes
 
 all:	$(NAME)
 
-$(NAME): $(SRCS) $(LIBFT) $(MLX) fdf.h
+$(NAME): $(SRCS) $(LIBFT) $(MLX) fractol.h
 	@make -j objects
 	@$(CCC) $(FLAGS) $(MLX) -L$(LIB_PATH) -I $(INCLUDES) $(OBJS) -lft -framework OpenGL -framework Appkit -o $(NAME)
 	@printf "$(RESET)$(BOLD)$(BG_GREEN)$(WHITE)$(DIM) DONE $(RESET)\n"
