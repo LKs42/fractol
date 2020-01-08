@@ -6,13 +6,13 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 15:53:07 by lugibone          #+#    #+#             */
-/*   Updated: 2020/01/06 16:20:52 by lugibone         ###   ########.fr       */
+/*   Updated: 2020/01/06 17:03:57 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	init_julia(t_scene *scene, int *i, int x, int y)
+static void		init_julia(t_scene *scene, int *i, int x, int y)
 {
 	double zoomx;
 	double zoomy;
@@ -24,7 +24,7 @@ void	init_julia(t_scene *scene, int *i, int x, int y)
 	scene->z.i = y / zoomy + scene->plan.y1;
 }
 
-int		julia_loop(t_scene *scene, int i)
+static int		julia_loop(t_scene *scene, int i)
 {
 	double tmp;
 
@@ -34,7 +34,7 @@ int		julia_loop(t_scene *scene, int i)
 	return (++i);
 }
 
-int		julia_set(t_scene *scene, int xx, int yy)
+int				julia_set(t_scene *scene, int xx, int yy)
 {
 	int i;
 	int x;
@@ -63,7 +63,7 @@ i < scene->iteration)
 	return (1);
 }
 
-int		julia_hook(int x, int y, t_scene *scene)
+int				julia_hook(int x, int y, t_scene *scene)
 {
 	if (scene->fractal_id == 2)
 	{

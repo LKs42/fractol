@@ -6,13 +6,13 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 15:53:17 by lugibone          #+#    #+#             */
-/*   Updated: 2020/01/06 16:16:33 by lugibone         ###   ########.fr       */
+/*   Updated: 2020/01/06 17:03:21 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	bs_loop(t_scene *scene, int i)
+static int	bs_loop(t_scene *scene, int i)
 {
 	double tmp;
 
@@ -23,7 +23,7 @@ fabs(scene->z.i) + scene->c.r;
 	return (++i);
 }
 
-int	bs_set(t_scene *scene)
+int			bs_set(t_scene *scene)
 {
 	int i;
 	int x;

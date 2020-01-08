@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 15:23:19 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/04 17:33:24 by lugibone         ###   ########.fr       */
+/*   Updated: 2020/01/08 20:35:11 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct		s_plan
 	double x2;
 	double y1;
 	double y2;
-}			t_plan;
+}					t_plan;
 
 typedef struct		s_list
 {
@@ -49,7 +49,7 @@ typedef struct		s_point
 	int				color;
 }					t_point;
 
-typedef struct		s_scene
+typedef	struct		s_scene
 {
 	char			*title;
 	void			*mlx_ptr;
@@ -65,8 +65,8 @@ typedef struct		s_scene
 	int				bg_color;
 	int				iteration;
 	int				fractal_id;
-	double 				zoom;
-	t_plan				plan;
+	double			zoom;
+	t_plan			plan;
 	t_complex		z;
 	t_complex		c;
 }					t_scene;

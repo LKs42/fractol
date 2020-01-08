@@ -6,13 +6,13 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 15:53:01 by lugibone          #+#    #+#             */
-/*   Updated: 2020/01/06 16:23:25 by lugibone         ###   ########.fr       */
+/*   Updated: 2020/01/06 17:04:42 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int		md_loop(t_scene *scene, int i)
+static int		md_loop(t_scene *scene, int i)
 {
 	double tmp;
 
@@ -22,7 +22,7 @@ int		md_loop(t_scene *scene, int i)
 	return (++i);
 }
 
-void	init_md(t_scene *scene, int *i, int x, int y)
+void			init_md(t_scene *scene, int *i, int x, int y)
 {
 	double zoomx;
 	double zoomy;
@@ -36,7 +36,7 @@ void	init_md(t_scene *scene, int *i, int x, int y)
 	scene->c.i = y / zoomy + scene->plan.y1;
 }
 
-int		md_set(t_scene *scene)
+int				md_set(t_scene *scene)
 {
 	int i;
 	int x;

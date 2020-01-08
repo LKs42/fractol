@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 19:21:05 by lugibone          #+#    #+#             */
-/*   Updated: 2020/01/06 16:17:12 by lugibone         ###   ########.fr       */
+/*   Updated: 2020/01/08 20:12:33 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ t_scene	*init_scene(int w, int h, char *str)
 {
 	t_scene *scene;
 
-	scene = malloc(sizeof(t_scene));
+	if (!(scene = malloc(sizeof(t_scene))))
+		return (0);
 	set_scene(scene);
 	scene->win_height = h;
 	scene->win_width = w;
