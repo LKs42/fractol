@@ -6,11 +6,15 @@
 #    By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/02 15:19:01 by lugibone          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2019/11/06 17:01:20 by lugibone         ###   ########.fr        #
+=======
+#    Updated: 2020/01/06 16:32:24 by lugibone         ###   ########.fr        #
+>>>>>>> f72a84903d5213055472c4df561d038ee8a3863e
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fdf
+NAME = fractol
 
 RESET = \e[0m
 BOLD = \e[1m
@@ -44,7 +48,11 @@ DARK_GRAY = \e[100m
 BG_WHITE = \e[107m
 
 CCC = gcc
+<<<<<<< HEAD
 FLAGS = -g
+=======
+FLAGS = -Wall -Werror -Wextra
+>>>>>>> f72a84903d5213055472c4df561d038ee8a3863e
 MLX = minilibx_macos/libmlx.a
 SRC_PATH = ./
 OBJ_PATH = ./
@@ -55,6 +63,10 @@ SRC_NAME =	bresenham.c \
 			init.c \
 			pixel.c \
 			ft_itoa_base.c \
+			mandelbrot.c \
+			julia.c \
+			burning_ship.c \
+			utils.c \
 			main.c
 OBJS := $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 SRCS := $(addprefix $(SRC_PATH)/,$(SRC_NAME))
@@ -64,7 +76,11 @@ INCLUDES = ./libft/includes
 
 all:	$(NAME)
 
+<<<<<<< HEAD
 $(NAME): $(SRCS) $(LIBFT) $(MLX) fdf.h keysymdef.h
+=======
+$(NAME): $(SRCS) $(LIBFT) $(MLX) fractol.h
+>>>>>>> f72a84903d5213055472c4df561d038ee8a3863e
 	@make -j objects
 	@$(CCC) $(FLAGS) $(MLX) -L$(LIB_PATH) -I $(INCLUDES) $(OBJS) -lft -framework OpenGL -framework Appkit -o $(NAME)
 	@printf "$(RESET)$(BOLD)$(BG_GREEN)$(WHITE)$(DIM) DONE $(RESET)\n"

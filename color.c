@@ -6,11 +6,11 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 18:49:41 by lugibone          #+#    #+#             */
-/*   Updated: 2019/11/21 18:51:59 by lugibone         ###   ########.fr       */
+/*   Updated: 2020/01/06 15:41:27 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "fractol.h"
 
 void	change_color(t_point *point, int color)
 {

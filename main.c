@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include "SDL.h"
 #include <stdio.h>
 #include "libft.h"
@@ -168,6 +169,23 @@ void	pp_liner_renderer(SDL_Renderer *renderer, t_point *a, t_point *b, SDL_Color
 }
 
 int pp_rect(SDL_Renderer *renderer, t_rect rect, SDL_Color color)
+=======
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/05 19:24:42 by lugibone          #+#    #+#             */
+/*   Updated: 2020/01/08 20:32:56 by lugibone         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fractol.h"
+
+void			display(t_scene *scene, int x, int y)
+>>>>>>> f72a84903d5213055472c4df561d038ee8a3863e
 {
     int i;
     int j;
@@ -186,6 +204,7 @@ int pp_rect(SDL_Renderer *renderer, t_rect rect, SDL_Color color)
     return (0);
 }
 
+<<<<<<< HEAD
 int pp_drawsquare(SDL_Renderer *renderer, int x, int y, int size, SDL_Color color)
 {
     int i;
@@ -206,6 +225,9 @@ int pp_drawsquare(SDL_Renderer *renderer, int x, int y, int size, SDL_Color colo
 }
 
 void	pp_bucket_tool(uint32_t *pixels, int x, int y, uint32_t color)
+=======
+static int		deal_mouse(int key, int x, int y, t_scene *scene)
+>>>>>>> f72a84903d5213055472c4df561d038ee8a3863e
 {
     pixels[y * WIDTH + x] = color;
     if (pixels[y * WIDTH + x + 1] <= WIDTH)
@@ -222,6 +244,7 @@ void	pp_bucket_tool(uint32_t *pixels, int x, int y, uint32_t color)
             pp_bucket_tool(pixels, x, y - 1, color);
 }
 
+<<<<<<< HEAD
 void    draw_column(uint32_t *pixels, int i, uint32_t height, uint32_t color)
 {
     t_point a;
@@ -409,4 +432,76 @@ Quit:
         SDL_DestroyWindow(window);
     SDL_Quit();
     return statut;
+=======
+static	int		correct_value(int ac, char **av)
+{
+	if (ac != 2)
+		return (0);
+	else
+	{
+		if (av[1][0] == '1' && av[1][1] == '\0')
+			return (1);
+		else if (av[1][0] == '2' && av[1][1] == '\0')
+			return (2);
+		else if (av[1][0] == '3' && av[1][1] == '\0')
+			return (3);
+		else
+			return (0);
+	}
+	return (0);
+}
+
+static int		argument(t_scene *scene, int argc, char **argv)
+{
+	if (argc != 2)
+		file_error(scene, 1);
+	else
+	{
+		if (correct_value(argc, argv) == 1)
+		{
+			set_md(scene);
+			md_set(scene);
+			scene->fractal_id = 1;
+		}
+		if (correct_value(argc, argv) == 2)
+		{
+			set_julia(scene);
+			julia_set(scene, 0, 0);
+			scene->fractal_id = 2;
+		}
+		if (correct_value(argc, argv) == 3)
+		{
+			set_md(scene);
+			bs_set(scene);
+			scene->fractal_id = 3;
+		}
+	}
+	return (1);
+}
+
+int				main(int argc, char **argv)
+{
+	t_scene *scene;
+
+	scene = NULL;
+	if (correct_value(argc, argv) > 0)
+	{
+		scene = init_scene(WIDTH, HEIGHT, "hell world");
+		scene->zoom = 1;
+		fill_img(scene, scene->bg_color);
+		argument(scene, argc, argv);
+	}
+	if (scene == NULL)
+	{
+		usage();
+		return (0);
+	}
+	mlx_put_image_to_window(scene->mlx_ptr,
+			scene->win_ptr, scene->img_ptr, 0, 0);
+	mlx_key_hook(scene->win_ptr, deal_key, scene);
+	mlx_mouse_hook(scene->win_ptr, deal_mouse, scene);
+	mlx_hook(scene->win_ptr, 6, 1L << 6, julia_hook, scene);
+	mlx_loop(scene->mlx_ptr);
+	return (0);
+>>>>>>> f72a84903d5213055472c4df561d038ee8a3863e
 }

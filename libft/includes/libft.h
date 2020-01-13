@@ -6,7 +6,7 @@
 /*   By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 15:23:19 by lugibone          #+#    #+#             */
-/*   Updated: 2019/12/04 17:33:24 by lugibone         ###   ########.fr       */
+/*   Updated: 2020/01/08 20:35:11 by lugibone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,17 @@
 # include <fcntl.h>
 # include <math.h>
 
+<<<<<<< HEAD
+=======
+typedef struct		s_plan
+{
+	double x1;
+	double x2;
+	double y1;
+	double y2;
+}					t_plan;
+
+>>>>>>> f72a84903d5213055472c4df561d038ee8a3863e
 typedef struct		s_list
 {
 	void			*content;
@@ -35,6 +46,7 @@ typedef struct		s_point
 	int				color;
 }					t_point;
 
+<<<<<<< HEAD
 typedef struct      s_coord
 {
     int x;
@@ -43,6 +55,9 @@ typedef struct      s_coord
 }                   t_coord;
 
 typedef struct		s_scene
+=======
+typedef	struct		s_scene
+>>>>>>> f72a84903d5213055472c4df561d038ee8a3863e
 {
 	char			*title;
 	void			*mlx_ptr;
@@ -56,10 +71,19 @@ typedef struct		s_scene
 	int				sl;
 	int				endian;
 	int				bg_color;
+<<<<<<< HEAD
     int             mousex;
     int             mousey;
     char            *map;
     t_point         player;
+=======
+	int				iteration;
+	int				fractal_id;
+	double			zoom;
+	t_plan			plan;
+	t_complex		z;
+	t_complex		c;
+>>>>>>> f72a84903d5213055472c4df561d038ee8a3863e
 }					t_scene;
 
 size_t				ft_strlen(const char *str);
