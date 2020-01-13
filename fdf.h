@@ -17,6 +17,7 @@
 # define WIDTH 500
 # define HEIGHT 500
 
+int     draw(t_scene *scene);
 void	reset(t_scene *scene);
 void	display(t_scene *scene, int x, int y);
 int	md_set(t_scene *scene);

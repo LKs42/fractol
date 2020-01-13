@@ -20,26 +20,12 @@
 # include <fcntl.h>
 # include <math.h>
 
-typedef struct		s_plan
-{
-	double x1;
-	double x2;
-	double y1;
-	double y2;
-}			t_plan;
-
 typedef struct		s_list
 {
 	void			*content;
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
-
-typedef struct		s_complex
-{
-	double			r;
-	double			i;
-}					t_complex;
 
 typedef struct		s_point
 {
@@ -48,6 +34,13 @@ typedef struct		s_point
 	float			z;
 	int				color;
 }					t_point;
+
+typedef struct      s_coord
+{
+    int x;
+    int y;
+    int value;
+}                   t_coord;
 
 typedef struct		s_scene
 {
@@ -63,12 +56,10 @@ typedef struct		s_scene
 	int				sl;
 	int				endian;
 	int				bg_color;
-	int				iteration;
-	int				fractal_id;
-	double 				zoom;
-	t_plan				plan;
-	t_complex		z;
-	t_complex		c;
+    int             mousex;
+    int             mousey;
+    char            *map;
+    t_point         player;
 }					t_scene;
 
 size_t				ft_strlen(const char *str);

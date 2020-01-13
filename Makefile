@@ -6,7 +6,7 @@
 #    By: lugibone <lugibone@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/02 15:19:01 by lugibone          #+#    #+#              #
-#    Updated: 2019/11/21 18:55:36 by lugibone         ###   ########.fr        #
+#    Updated: 2019/11/06 17:01:20 by lugibone         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ DARK_GRAY = \e[100m
 BG_WHITE = \e[107m
 
 CCC = gcc
-FLAGS = -g -Wall -Werror -Wextra
+FLAGS = -g
 MLX = minilibx_macos/libmlx.a
 SRC_PATH = ./
 OBJ_PATH = ./
@@ -64,10 +64,14 @@ INCLUDES = ./libft/includes
 
 all:	$(NAME)
 
-$(NAME): $(SRCS) $(LIBFT) $(MLX) fdf.h
+$(NAME): $(SRCS) $(LIBFT) $(MLX) fdf.h keysymdef.h
 	@make -j objects
 	@$(CCC) $(FLAGS) $(MLX) -L$(LIB_PATH) -I $(INCLUDES) $(OBJS) -lft -framework OpenGL -framework Appkit -o $(NAME)
 	@printf "$(RESET)$(BOLD)$(BG_GREEN)$(WHITE)$(DIM) DONE $(RESET)\n"
+
+linux:
+	@make -j objects
+	@cc -lm -I $(INCLUDES) $(OBJS) -L libft -lft -L/usr/X11/lib /usr/X11/lib/libmlx.a -lXext -lXext -lX11 -lm -o $(NAME)
 
 objects: $(OBJS)
 
