@@ -17,9 +17,6 @@
 # define WIDTH 500
 # define HEIGHT 500
 
-<<<<<<< HEAD:fdf.h
-int     draw(t_scene *scene);
-=======
 int		md_set(t_scene *scene);
 void	init_md(t_scene *scene, int *i, int x, int y);
 int		bs_set(t_scene *scene);
@@ -29,7 +26,6 @@ double	y_real(t_scene *scene, int y);
 double	x_real(t_scene *scene, int x);
 int		julia_hook(int x, int y, t_scene *scene);
 int		julia_set(t_scene *scene, int xx, int yy);
->>>>>>> f72a84903d5213055472c4df561d038ee8a3863e:fractol.h
 void	reset(t_scene *scene);
 void	display(t_scene *scene, int x, int y);
 int		md_set(t_scene *scene);

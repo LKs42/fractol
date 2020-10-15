@@ -12,22 +12,28 @@
 
 #include "fractol.h"
 
+void	key_scale(int key, t_scene *scene)
+{
+	if (key == 0x7E)
+		scene->scale += 0.5;
+	if (key == 0x7D)
+		scene->scale -= 0.5;
+}
+
 int		deal_key(int key, t_scene *scene)
 {
-    ft_putnbr(key);
-    ft_putchar('\n');
 	if (key == 53)
 		file_error(scene, 0);
-	if (key == 65307)
-		file_error(scene, 0);
-    if (key == 65361)
-	    scene->player.x -= 1;
-	if (key == 65363)
-	    scene->player.x += 1;
-	if (key == 65362)
-	    scene->player.y -= 1;
-	if (key == 65364)
-	    scene->player.y += 1;
-    draw(scene);
-    return (0);
+	if (key == 122)
+		scene->fractal_id = 1;
+	if (key == 120)
+		scene->fractal_id = 2;
+	if (key == 99)
+		scene->fractal_id = 3;
+	if (key == 99 || key == 120 || key == 122)
+		reset(scene);
+	display(scene, 0, 0);
+	mlx_put_image_to_window(scene->mlx_ptr,
+			scene->win_ptr, scene->img_ptr, 0, 0);
+	return (0);
 }
